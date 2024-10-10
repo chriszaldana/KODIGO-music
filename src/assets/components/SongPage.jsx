@@ -1,6 +1,19 @@
+import { useNavigate } from "react-router-dom"
+
 const SongPage = () => {
+
+  const navigate = useNavigate()
+
+  const backToMain = () =>{
+
+    navigate('/mainpage')
+  }
+
   return (
-    <div>SongPage</div>
+    <>
+    SongPage
+    <button onClick={backToMain}>Back to main</button>
+    </>
   )
 }
 
