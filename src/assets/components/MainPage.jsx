@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { useForm } from "react-hook-form"
 import { useContext, useState } from "react"
 import { FavoriteContext } from "../context/FavoriteContext"
@@ -51,43 +52,53 @@ const MainPage = () => {
 
   return (
     <>
-    <div className="container">
-        <form onSubmit={handleSubmit(handleSearch)}>
+    <div className="container d-flex justify-content-center mt-5 ">
+        <form className="text-center" onSubmit={handleSubmit(handleSearch)}>
           <h1>¿Qué quieres escuchar hoy?</h1>
           <input
+          className="form-control mt-4 mb-4"
             type="text"
             placeholder="Escribe tu canción"
             id="cancion"
             {...register("cancion")}
           />
-          <button type="submit">Buscar</button>
+          <button className="btn btn-outline-success" type="submit">Buscar</button>
         </form>
-
-        {canciones.map((cancion) => (
+    </div>
+        <div className="container mt-5">
+          <div className="row ">
+          {canciones.map((cancion) => (
+          <div className="d-flex justify-content-center col-xxl-3 col-xl-4 col-lg-6 col-  mt-3 mb-3">
           <div className="card" style={{ width: "18rem" }} key={cancion.data.id}>
-            <img
-              src={cancion.data.albumOfTrack.coverArt.sources[0].url}
-              className="card-img-top"
-              alt="..."
-            />
-            <div className="card-body">
-              <h5 className="card-title">{cancion.data.name}</h5>
-              <p className="card-text">
-                {cancion.data.artists.items[0].profile.name}
-              </p>
-              <button
-                onClick={() => agregarFavoritos(cancion)}
-                className="btn btn-primary"
-              >
-                Agregar a Favoritos
-              </button>
-            </div>
-          </div>
-        ))}
-       
-        
-
+        <img
+          src={cancion.data.albumOfTrack.coverArt.sources[0].url}
+          className="card-img-top"
+          alt="..."
+        />
+        <div className="card-body bg-black text-white">
+          <h5 className="card-title">{cancion.data.name}</h5>
+          <p className="card-text">
+            {cancion.data.artists.items[0].profile.name}
+          </p>
+          <a href={cancion.data.uri}><button
+            className="btn btn-outline-success"
+          >Play</button></a>
+          
+          <button
+            onClick={() => agregarFavoritos(cancion)}
+            className="btn btn-outline-success mx-3"
+          >
+            Agregar a Favoritos
+          </button>
+        </div>
       </div>
+          </div>
+          
+        ))}
+          </div>
+        </div>
+        
+      
     
     </>
   )

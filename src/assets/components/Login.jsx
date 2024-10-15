@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import {useForm} from 'react-hook-form'
-import { DevTool } from "@hookform/devtools"
+import SpotifyLogo from '../images/Spotify.svg'
 
 const auth = getAuth(appFirebase)
 
 const Login = () => {
 
-    const {register, handleSubmit, control, formState} = useForm()
+    const {register, handleSubmit, formState} = useForm()
     const {errors} = formState
 
     const navigate = useNavigate()
@@ -19,11 +19,6 @@ const Login = () => {
     const [registrandose, setRegistrandose] = useState(false)
 
     const funcionToAuth = async(data) => {
-       
-        // const correo = e.target.email.value  
-        // const pass = e.target.password.value
-        // console.log(data);
-        
 
         if (registrandose) {
             try {
@@ -51,11 +46,18 @@ const Login = () => {
 
   return (
     <>
-    <div className="container mt-5">
-        <form onSubmit={handleSubmit(funcionToAuth)} noValidate>
+    
+    
+    <div className="container d-flex flex-column justify-content-center align-items-center vh-100">
+    <div>
+    <img src={SpotifyLogo} alt="Spotify Logo" width={200}/>
+    <p className="text-center fs-3 fw-bolder">Login to Spotify</p>
+    </div>
+    
+        <form className="w-50" onSubmit={handleSubmit(funcionToAuth)} noValidate>
             <div className="mb-3">
                 <label className="form-label">Correo Electronico</label>
-                <input type="email" className="form-control" id="email" {...register('email',{required:{value: true, message: 'El correo es necesario para ingresar'}, pattern:{value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, message: 'Correo invalido'}})}aria-describedby="emailHelp"/>
+                <input type="email" className="form-control w-100" id="email" {...register('email',{required:{value: true, message: 'El correo es necesario para ingresar'}, pattern:{value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, message: 'Correo invalido'}})}aria-describedby="emailHelp"/>
                 <div id="emailHelp" className="form-text">No compartiremos tu correo electronico con nadie mas</div>
                 <p className="text-danger">{errors.email?.message}</p>
             </div>
@@ -64,10 +66,10 @@ const Login = () => {
                 <input type="password" className="form-control" id="password" {...register('password', {required:{value: true, message: 'Necesita ingresar la contraseña'}})}/>
                 <p className="text-danger">{errors.password?.message}</p>
             </div>
-            <button type="submit" className="btn btn-primary">Ingresar</button>
-            <button onClick={() =>{setRegistrandose(true)}} type="submit" className="mx-2 btn btn-primary">Registrarse</button>
+            <button type="submit" className="btn btn-outline-success">Ingresar</button>
+            <button onClick={() =>{setRegistrandose(true)}} type="submit" className="mx-2 btn btn-outline-success">Registrarse</button>
         </form>
-        <DevTool control={control} />
+        
     </div>
        
     </>
