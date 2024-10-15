@@ -12,7 +12,7 @@ const NavBar = () => {
     const auth = getAuth()
     const navigate = useNavigate()
     const location = useLocation()
-    const { setCancionFavorita } = useContext(FavoriteContext)
+    const { setCancionFavorita, email } = useContext(FavoriteContext)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -63,6 +63,10 @@ const NavBar = () => {
                 </ul>
                 
                 <div className="d-flex">
+                   
+                    <p className="mt-2 fw-bolder fs-5 me-4">Bienvenido {email}</p>
+                    
+                    
                 <button onClick={irAFavoritos} className="btn btn-outline-success me-3">
                     {location.pathname === '/favoritos' ? 'Pagina Principal' : 'Ir a Favoritos'}
                      </button>

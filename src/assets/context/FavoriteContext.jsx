@@ -12,9 +12,11 @@ export const FavoriteProvider = ({children}) =>{
         setCancionFavorita((prevFavoritos) => [...prevFavoritos, cancion])
         Swal.fire("Tu cancion se agrego a favoritos");
       }
+      
+    const [email, setEmail] = useState('')
 
       return (
-        <FavoriteContext.Provider value={{cancionFavorita, agregarFavoritos, setCancionFavorita}}>
+        <FavoriteContext.Provider value={{cancionFavorita, agregarFavoritos, setCancionFavorita, setEmail, email}}>
             {children}
         </FavoriteContext.Provider>
       )

@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
 import appFirebase from "../firebase/config"
 import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword} from 'firebase/auth'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import {useForm} from 'react-hook-form'
 import SpotifyLogo from '../images/Spotify.svg'
+import { FavoriteContext } from "../context/FavoriteContext"
 
 const auth = getAuth(appFirebase)
 
 const Login = () => {
+
+    const {setEmail} = useContext(FavoriteContext)
 
     const {register, handleSubmit, formState} = useForm()
     const {errors} = formState
@@ -24,6 +27,7 @@ const Login = () => {
             try {
                 await createUserWithEmailAndPassword(auth,data.email,data.password)
                 navigate('/mainpage')
+                setEmail(data.email)
             } catch (error) {
                 Swal.fire({
                     text: "Asegurese que la contraseña tenga 8 digitos",
@@ -34,6 +38,7 @@ const Login = () => {
             try {
                 await signInWithEmailAndPassword(auth, data.email, data.password)
                 navigate('/mainpage')
+                setEmail(data.email)
             } catch (error) {
                 Swal.fire({
                     text: "El correo o contraseña son incorrectos",
